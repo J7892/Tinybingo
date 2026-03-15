@@ -5,22 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tiny Hand Bingo</title>
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --orange: #E8720C;
-    --blue: #003DA5;
-    --cream: #FDF6E3;
-    --delft: #1B3A6B;
-    --tulip: #D63B6B;
-    --gold: #F5C518;
-  }
-
-- { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-background-color: var(–cream);
-font-family: ‘Nunito’, sans-serif;
+background-color: #FDF6E3;
+font-family: Georgia, ‘Times New Roman’, serif;
 min-height: 100vh;
 display: flex;
 flex-direction: column;
@@ -28,226 +18,159 @@ align-items: center;
 padding: 24px 12px 48px;
 }
 
-header { text-align: center; margin-bottom: 24px; }
-
-.windmill-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 8px; }
-.windmill { font-size: 22px; animation: spin 8s linear infinite; display: inline-block; }
-.windmill:nth-child(2) { animation-delay: -2.5s; }
-.windmill:nth-child(3) { animation-delay: -5s; }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
 h1 {
-font-family: ‘Abril Fatface’, serif;
-font-size: clamp(2.2rem, 8vw, 3.6rem);
-color: var(–orange);
+font-size: 2.8rem;
+color: #E8720C;
+text-align: center;
 line-height: 1;
-text-shadow: 3px 3px 0 rgba(0,61,165,0.15);
+margin-bottom: 6px;
 }
 
 .cutline {
-font-size: 0.9rem; font-weight: 700; color: var(–delft);
-letter-spacing: 0.15em; text-transform: uppercase; margin-top: 6px; opacity: 0.7;
-}
-
-.flag-strip { display: flex; gap: 6px; justify-content: center; margin-top: 10px; font-size: 18px; }
-
-.card-wrapper {
-border-radius: 12px;
-border: 3px solid var(–blue);
-box-shadow: 5px 5px 0 var(–orange);
-overflow: hidden;
-width: 100%;
-max-width: 560px;
-}
-
-.card-header { background-color: var(–blue); display: flex; }
-.card-header span {
-flex: 1; text-align: center;
-font-family: ‘Abril Fatface’, serif;
-font-size: clamp(1.4rem, 5vw, 2rem);
-color: var(–gold); padding: 10px 4px; letter-spacing: 2px;
-}
-
-/* HTML table — works everywhere including iOS Chrome */
-.bingo-table {
-width: 100%;
-border-collapse: collapse;
-table-layout: fixed;
-}
-
-.bingo-table td {
-width: 20%;
-height: 68px;
-background-color: #ffffff;
-border: 2px solid var(–blue);
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+font-weight: bold;
+color: #1B3A6B;
+letter-spacing: 0.15em;
+text-transform: uppercase;
 text-align: center;
-vertical-align: middle;
-padding: 5px 3px;
+opacity: 0.7;
+}
+
+.flags { text-align: center; font-size: 18px; margin: 8px 0 20px; }
+
+.card-outer {
+width: 100%;
+max-width: 540px;
+border: 4px solid #003DA5;
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 5px 5px 0 #E8720C;
+}
+
+.bingo-header {
+background-color: #003DA5;
+display: flex;
+}
+.bingo-header span {
+flex: 1;
+text-align: center;
+color: #F5C518;
+font-size: 1.8rem;
+font-weight: bold;
+padding: 10px 0;
+letter-spacing: 3px;
+}
+
+.grid-wrap {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+border-left: 3px solid #003DA5;
+border-top: 3px solid #003DA5;
+}
+
+.banner {
+display: none;
+text-align: center;
+margin-top: 20px;
+font-size: 2rem;
+color: #D63B6B;
+font-weight: bold;
+}
+.banner.show { display: block; }
+
+.controls {
+display: flex;
+gap: 14px;
+justify-content: center;
+margin-top: 22px;
+}
+
+.btn {
+font-family: Arial, Helvetica, sans-serif;
+font-weight: bold;
+font-size: 0.9rem;
+padding: 12px 26px;
+border-radius: 30px;
 cursor: pointer;
--webkit-tap-highlight-color: transparent;
+border: 3px solid #003DA5;
 }
+.btn-orange { background-color: #E8720C; color: white; border-color: #E8720C; }
+.btn-white  { background-color: white; color: #003DA5; border-color: #003DA5; }
 
-.bingo-table td span {
-display: block;
-font-size: clamp(0.52rem, 1.9vw, 0.7rem);
-font-weight: 700;
-color: var(–delft);
-line-height: 1.3;
+.card-id {
+text-align: center;
+font-size: 0.7rem;
+color: #aaa;
+margin-top: 14px;
+font-family: Arial, sans-serif;
 }
-
-.bingo-table td.marked { background-color: var(–blue) !important; }
-.bingo-table td.marked span { color: #ffffff !important; }
-
-.bingo-table td.free-space { background-color: var(–orange) !important; cursor: default; }
-.bingo-table td.free-space span { color: #ffffff !important; }
-
-.bingo-table td.bingo-line { background-color: var(–tulip) !important; }
-.bingo-table td.bingo-line span { color: #ffffff !important; }
-
-.bingo-banner { display: none; text-align: center; margin-top: 20px; }
-.bingo-banner.show { display: block; animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-@keyframes pop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.bingo-banner .big { font-family: ‘Abril Fatface’, serif; font-size: clamp(1.8rem, 6vw, 2.8rem); color: var(–tulip); }
-.bingo-banner .sub { font-size: 0.95rem; font-weight: 700; color: var(–delft); margin-top: 4px; }
-
-.controls { display: flex; gap: 12px; justify-content: center; margin-top: 22px; flex-wrap: wrap; }
-
-button {
-font-family: ‘Nunito’, sans-serif; font-weight: 800; font-size: 0.9rem;
-padding: 11px 24px; border-radius: 30px; cursor: pointer;
-letter-spacing: 0.04em; -webkit-tap-highlight-color: transparent;
-}
-
-#newCardBtn {
-background-color: var(–orange); color: white;
-border: 2.5px solid var(–orange); box-shadow: 3px 3px 0 rgba(232,114,12,0.35);
-}
-
-#resetBtn {
-background-color: white; color: var(–blue);
-border: 2.5px solid var(–blue); box-shadow: 3px 3px 0 rgba(0,61,165,0.2);
-}
-
-.card-id { text-align: center; font-size: 0.7rem; color: #aaa; margin-top: 14px; font-weight: 600; letter-spacing: 0.08em; }
 </style>
 
 </head>
 <body>
 
-<header>
-  <div class="windmill-row">
-    <span class="windmill">⚙️</span>
-    <span class="windmill">⚙️</span>
-    <span class="windmill">⚙️</span>
-  </div>
-  <h1>Tiny Hand Bingo</h1>
-  <p class="cutline">Tiny bingo for tiny hands</p>
-  <div class="flag-strip"><span>🇳🇱</span><span>🌷</span><span>🇧🇪</span></div>
-</header>
+<h1>Tiny Hand Bingo</h1>
+<p class="cutline">Tiny bingo for tiny hands</p>
+<div class="flags">🇳🇱 🌷 🇧🇪</div>
 
-<div class="card-wrapper">
-  <div class="card-header">
+<div class="card-outer">
+  <div class="bingo-header">
     <span>B</span><span>I</span><span>N</span><span>G</span><span>O</span>
   </div>
-  <table class="bingo-table" id="grid"></table>
+  <div class="grid-wrap" id="grid"></div>
 </div>
 
-<div class="bingo-banner" id="banner">
-  <p class="big">🎉 BINGO! 🎉</p>
-  <p class="sub">Gefeliciteerd!</p>
-</div>
+<div class="banner" id="banner">🎉 BINGO! 🎉<br><span style="font-size:1rem;color:#1B3A6B;">Gefeliciteerd!</span></div>
 
 <div class="controls">
-  <button id="newCardBtn">🎲 New Card</button>
-  <button id="resetBtn">↺ Reset Marks</button>
+  <button class="btn btn-orange" id="newCardBtn">🎲 New Card</button>
+  <button class="btn btn-white" id="resetBtn">↺ Reset Marks</button>
 </div>
-
 <p class="card-id" id="cardId"></p>
 
 <script>
-var ALL_ITEMS = [
-  "Hitler stache on FVD leader",
-  "Old windmill turning",
-  "Modern windmill turning",
-  "Tulip blooming",
-  "Statue of boy & girl kissing",
-  "Blue Delft china pattern",
-  "Cyclist boosting another",
-  "Two bakfiets side by side",
-  "Dog in a bakfiets",
-  "Poffertje stand",
-  "Shell station",
-  "House of Orange lion",
-  "Eating on trail noisily",
-  "Train ticket checker",
-  "Folding bike on train",
-  "Shelf toilet",
-  "Hot air balloon",
-  "Castle",
-  "Leaning tower",
-  "Coffeeshop (not in Breda)",
-  "Full-sized pickup truck",
-  "Fresh stroopwafel",
-  "Starbucks (not in station)",
-  "Selling cheese wheel on street",
-  "Frites stand",
-  "Soccer jersey",
-  "Wearing Canadian flag",
-  "Eating herring by the tail",
-  "Tandem bike",
-  "Church tower (not in Breda)",
-  "Leaning church tower",
+var ITEMS = [
+  "Hitler stache on FVD leader","Old windmill turning","Modern windmill turning",
+  "Tulip blooming","Statue of boy & girl kissing","Blue Delft china pattern",
+  "Cyclist boosting another","Two bakfiets side by side","Dog in a bakfiets",
+  "Poffertje stand","Shell station","House of Orange lion","Eating on trail noisily",
+  "Train ticket checker","Folding bike on train","Shelf toilet","Hot air balloon",
+  "Castle","Leaning tower","Coffeeshop (not in Breda)","Full-sized pickup truck",
+  "Fresh stroopwafel","Starbucks (not in station)","Selling cheese wheel on street",
+  "Frites stand","Soccer jersey","Wearing Canadian flag","Eating herring by the tail",
+  "Tandem bike","Church tower (not in Breda)","Leaning church tower",
   "Riding back of bike sideways"
 ];
 
-var FREE_INDEX = 12;
+var FREE = 12;
+var COL_DEFAULT  = "#ffffff";
+var COL_MARKED   = "#003DA5";
+var COL_FREE     = "#E8720C";
+var COL_BINGO    = "#D63B6B";
+var TXT_DARK     = "#1B3A6B";
+var TXT_LIGHT    = "#ffffff";
+var BORDER       = "2px solid #003DA5";
 
-function seededRng(seed) {
+function rng(seed) {
   var s = seed;
   return function() {
     s = (s * 1664525 + 1013904223) & 0xffffffff;
     return (s >>> 0) / 4294967296;
   };
 }
-
-function shuffle(arr, rng) {
+function shuffle(arr, r) {
   var a = arr.slice();
-  for (var i = a.length - 1; i > 0; i--) {
-    var j = Math.floor(rng() * (i + 1));
-    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  for (var i = a.length-1; i > 0; i--) {
+    var j = Math.floor(r() * (i+1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
   }
   return a;
 }
-
-function generateCard(seed) {
-  var rng = seededRng(seed);
-  var shuffled = shuffle(ALL_ITEMS, rng);
-  var picked = shuffled.slice(0, 24);
-  picked.splice(FREE_INDEX, 0, "FREE");
+function makeCard(seed) {
+  var picked = shuffle(ITEMS, rng(seed)).slice(0, 24);
+  picked.splice(FREE, 0, "FREE");
   return picked;
-}
-
-function storageKey(seed) { return 'thb_marks_' + seed; }
-function seedKey() { return 'thb_seed'; }
-
-function loadSeed() {
-  var s = localStorage.getItem(seedKey());
-  if (s) return parseInt(s, 10);
-  var ns = Math.floor(Math.random() * 0xffffff);
-  localStorage.setItem(seedKey(), ns);
-  return ns;
-}
-
-function loadMarks(seed) {
-  var s = localStorage.getItem(storageKey(seed));
-  if (s) return JSON.parse(s);
-  var m = [];
-  for (var i = 0; i < 25; i++) m.push(i === FREE_INDEX);
-  return m;
-}
-
-function saveMarks(seed, marks) {
-  localStorage.setItem(storageKey(seed), JSON.stringify(marks));
 }
 
 var LINES = [
@@ -255,93 +178,109 @@ var LINES = [
   [0,5,10,15,20],[1,6,11,16,21],[2,7,12,17,22],[3,8,13,18,23],[4,9,14,19,24],
   [0,6,12,18,24],[4,8,12,16,20]
 ];
-
-function checkBingo(marks) {
-  var wins = [];
-  for (var l = 0; l < LINES.length; l++) {
-    var line = LINES[l], ok = true;
-    for (var c = 0; c < line.length; c++) {
-      if (!marks[line[c]]) { ok = false; break; }
-    }
-    if (ok) wins.push(line);
+function winCells(marks) {
+  var s = {};
+  for (var l=0; l<LINES.length; l++) {
+    var ok = true;
+    for (var c=0; c<LINES[l].length; c++) if (!marks[LINES[l][c]]) { ok=false; break; }
+    if (ok) for (var c=0; c<LINES[l].length; c++) s[LINES[l][c]] = true;
   }
-  return wins;
+  return s;
 }
 
-var currentSeed, currentCard, currentMarks;
+var seed, card, marks;
+
+function cellBg(i, wins) {
+  if (wins[i]) return COL_BINGO;
+  if (marks[i]) return COL_MARKED;
+  if (i === FREE) return COL_FREE;
+  return COL_DEFAULT;
+}
+function cellColor(i, wins) {
+  return (wins[i] || marks[i] || i === FREE) ? TXT_LIGHT : TXT_DARK;
+}
 
 function render() {
   var grid = document.getElementById('grid');
   grid.innerHTML = '';
+  var wins = winCells(marks);
 
-  var winLines = checkBingo(currentMarks);
-  var winCells = {};
-  for (var w = 0; w < winLines.length; w++)
-    for (var x = 0; x < winLines[w].length; x++)
-      winCells[winLines[w][x]] = true;
+  for (var i=0; i<25; i++) {
+    var item = card[i];
+    var isFree = (item === 'FREE');
 
-  var row = null;
-  for (var i = 0; i < currentCard.length; i++) {
-    if (i % 5 === 0) {
-      row = document.createElement('tr');
-      grid.appendChild(row);
-    }
-    var item = currentCard[i];
-    var td = document.createElement('td');
-
-    var classes = [];
-    if (item === 'FREE') classes.push('free-space');
-    if (currentMarks[i]) classes.push('marked');
-    if (winCells[i]) classes.push('bingo-line');
-    if (classes.length) td.className = classes.join(' ');
+    var cell = document.createElement('div');
+    cell.style.cssText = [
+      'border-right:' + BORDER,
+      'border-bottom:' + BORDER,
+      'background-color:' + cellBg(i, wins),
+      'min-height:68px',
+      'display:flex',
+      'align-items:center',
+      'justify-content:center',
+      'text-align:center',
+      'padding:5px 3px',
+      'cursor:' + (isFree ? 'default' : 'pointer'),
+      '-webkit-tap-highlight-color:transparent'
+    ].join(';');
 
     var span = document.createElement('span');
-    span.textContent = item === 'FREE' ? '⭐ FREE ⭐' : item;
-    td.appendChild(span);
+    span.style.cssText = [
+      'font-family:Arial,Helvetica,sans-serif',
+      'font-size:0.65rem',
+      'font-weight:bold',
+      'line-height:1.3',
+      'color:' + cellColor(i, wins),
+      'display:block'
+    ].join(';');
+    span.textContent = isFree ? '⭐ FREE ⭐' : item;
+    cell.appendChild(span);
 
-    if (item !== 'FREE') {
+    if (!isFree) {
       (function(idx) {
-        td.addEventListener('click', function() {
-          currentMarks[idx] = !currentMarks[idx];
-          saveMarks(currentSeed, currentMarks);
+        cell.addEventListener('click', function() {
+          marks[idx] = !marks[idx];
+          save();
           render();
         });
       })(i);
     }
-
-    row.appendChild(td);
+    grid.appendChild(cell);
   }
 
   var banner = document.getElementById('banner');
-  if (winLines.length > 0) banner.classList.add('show');
-  else banner.classList.remove('show');
-
-  document.getElementById('cardId').textContent =
-    'Card #' + currentSeed.toString(16).toUpperCase().padStart(6, '0');
+  banner.className = Object.keys(winCells(marks)).length ? 'banner show' : 'banner';
+  document.getElementById('cardId').textContent = 'Card #' + seed.toString(16).toUpperCase().padStart(6,'0');
 }
 
-function initCard(seed) {
-  currentSeed = seed;
-  currentCard = generateCard(seed);
-  currentMarks = loadMarks(seed);
+function save() { localStorage.setItem('thb_m_'+seed, JSON.stringify(marks)); }
+
+function init(s) {
+  seed = s;
+  localStorage.setItem('thb_seed', s);
+  card = makeCard(seed);
+  var stored = localStorage.getItem('thb_m_'+seed);
+  if (stored) {
+    marks = JSON.parse(stored);
+  } else {
+    marks = [];
+    for (var i=0; i<25; i++) marks.push(i===FREE);
+  }
   render();
 }
 
 document.getElementById('newCardBtn').addEventListener('click', function() {
-  var seed = Math.floor(Math.random() * 0xffffff);
-  localStorage.setItem(seedKey(), seed);
-  initCard(seed);
+  init(Math.floor(Math.random() * 0xffffff));
 });
-
 document.getElementById('resetBtn').addEventListener('click', function() {
-  var m = [];
-  for (var i = 0; i < 25; i++) m.push(i === FREE_INDEX);
-  currentMarks = m;
-  saveMarks(currentSeed, currentMarks);
+  marks = [];
+  for (var i=0; i<25; i++) marks.push(i===FREE);
+  save();
   render();
 });
 
-initCard(loadSeed());
+var stored = localStorage.getItem('thb_seed');
+init(stored ? parseInt(stored,10) : Math.floor(Math.random()*0xffffff));
 </script>
 
 </body>
